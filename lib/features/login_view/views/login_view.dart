@@ -1,3 +1,4 @@
+import 'package:chat_app/features/login_view/views/widgets/custom_button.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,10 @@ class LoginView extends StatelessWidget {
             CustomTextField(textHint: "Email",),
             Spacer(flex: 1,),
             CustomTextField(textHint: "Password",),
+            Spacer(flex: 1,),
+            CustomButton(),
             Spacer(flex: 7,),
+
           ],
         ),
       ),
