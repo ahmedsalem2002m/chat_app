@@ -9,11 +9,11 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff2B475E),
-      body:Padding(
+      body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Spacer(flex: 3,),
+            Spacer(flex: 3),
             Image.asset("assets/images/scholar.png"),
             Text(
               "Scholar Chat",
@@ -21,25 +21,40 @@ class LoginView extends StatelessWidget {
                 fontFamily: "pacifico",
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
-                color: Colors.white
+                color: Colors.white,
               ),
             ),
-            Spacer(flex: 5,),
-            Text(
-              "Sign In",
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
-                color: Colors.white
-              ),
+            Spacer(flex: 3),
+            Row(
+              children: [
+                Text(
+                  "Sign In",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
-            CustomTextField(textHint: "Email",),
-            Spacer(flex: 1,),
-            CustomTextField(textHint: "Password",),
-            Spacer(flex: 1,),
+            SizedBox(height: 16),
+            CustomTextField(textHint: "Email"),
+            SizedBox(height: 8),
+            CustomTextField(textHint: "Password"),
+            SizedBox(height: 16),
             CustomButton(),
-            Spacer(flex: 7,),
-
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "don't have an account?",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(" Register", style: TextStyle(color: Color(0xffCdEDE6))),
+              ],
+            ),
+            Spacer(flex: 5),
           ],
         ),
       ),
