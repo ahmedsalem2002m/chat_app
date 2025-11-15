@@ -1,11 +1,10 @@
+import 'package:chat_app/features/login_view/views/login_view.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_button.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-import '../../register_view/views/register_view.dart';
-
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class LoginView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Sign In",
+                  "Register",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
@@ -40,30 +39,30 @@ class LoginView extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
+            CustomTextField(textHint: "Name"),
+            SizedBox(height: 8),
             CustomTextField(textHint: "Email"),
             SizedBox(height: 8),
             CustomTextField(textHint: "Password"),
             SizedBox(height: 16),
-            CustomButton(title: "Sign In",),
+            CustomButton(title: "Register"),
             SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "don't have an account?",
+                  "Already have an account!",
                   style: TextStyle(color: Colors.white),
                 ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => RegisterView(),
-                      ),
+                      MaterialPageRoute(builder: (context) => LoginView()),
                     );
                   },
                   child: Text(
-                    " Register",
+                    " Login",
                     style: TextStyle(color: Color(0xffCdEDE6)),
                   ),
                 ),
