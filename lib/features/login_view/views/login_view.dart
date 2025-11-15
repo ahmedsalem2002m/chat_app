@@ -1,3 +1,4 @@
+import 'package:chat_app/features/login_view/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
@@ -31,43 +32,9 @@ class LoginView extends StatelessWidget {
                 color: Colors.white
               ),
             ),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: "Email",
-                hintStyle: TextStyle(
-                  color: Colors.white
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.white
-                    )
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.white
-                  )
-                )
-              ),
-            ),
+            CustomTextField(textHint: "Email",),
             Spacer(flex: 1,),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: TextStyle(
-                  color: Colors.white
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.white
-                    )
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.white
-                  )
-                )
-              ),
-            ),
+            CustomTextField(textHint: "Password",),
             Spacer(flex: 7,),
           ],
         ),
