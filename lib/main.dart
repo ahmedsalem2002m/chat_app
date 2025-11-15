@@ -1,4 +1,5 @@
 import 'package:chat_app/features/login_view/views/login_view.dart';
+import 'package:chat_app/features/register_view/views/register_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        LoginView.id : (context)=>LoginView(),
+        RegisterView.id :(context)=>RegisterView()
+      },
       debugShowCheckedModeBanner: false,
       home: LoginView(),
     );
