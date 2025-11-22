@@ -23,7 +23,7 @@ class RegisterView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 44,),
+              SizedBox(height: 44),
               Image.asset("assets/images/scholar.png"),
               Text(
                 "Scholar Chat",
@@ -34,7 +34,7 @@ class RegisterView extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 52,),
+              SizedBox(height: 52),
               Row(
                 children: [
                   Text(
@@ -49,35 +49,57 @@ class RegisterView extends StatelessWidget {
               ),
               SizedBox(height: 16),
               CustomTextField(
-                  onChanged: (data) {
-                    name = data;
-                  },
-                  textHint: "Name"),
+                onChanged: (data) {
+                  name = data;
+                },
+                textHint: "Name",
+              ),
               SizedBox(height: 8),
               CustomTextField(
-                  onChanged: (data) {
-                    email = data;
-                  },
-                  textHint: "Email"),
+                onChanged: (data) {
+                  email = data;
+                },
+                textHint: "Email",
+              ),
               SizedBox(height: 8),
               CustomTextField(
-                  onChanged: (data) {
-                    password = data;
-                  },
-                  textHint: "Password"),
+                onChanged: (data) {
+                  password = data;
+                },
+                textHint: "Password",
+              ),
               SizedBox(height: 16),
               CustomButton(
-                  onTap: () async {
-                    try {
-                      var auth = FirebaseAuth.instance;
-                      UserCredential userCredential = await auth
-                          .createUserWithEmailAndPassword(
-                          email: email!, password: password!);
-                    } catch (e) {
-                      print(e);
+                onTap: () async {
+                  try {
+                    var auth = FirebaseAuth.instance;
+                    UserCredential userCredential = await auth
+                        .createUserWithEmailAndPassword(
+                          email: email!,
+                          password: password!,
+                        );
+                  } on FirebaseAuthException catch (ex) {
+                    if (ex.code == 'weak-password') {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text("password is weak")));
+                    } else if (ex.code == 'email-already-in-use') {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text("email already in use")));
                     }
-                  },
-                  title: "Register"),
+                  }catch (e){
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(e.toString())));
+                  }
+
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("success")));
+                },
+                title: "Register",
+              ),
               SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
