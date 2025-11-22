@@ -2,12 +2,17 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/login_view/views/login_view.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_button.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatelessWidget {
-  const RegisterView({super.key});
+  RegisterView({super.key});
+
   static String id = "RegisterView";
 
+  String? email;
+  String? name;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +48,36 @@ class RegisterView extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 16),
-              CustomTextField(textHint: "Name"),
+              CustomTextField(
+                  onChanged: (data) {
+                    name = data;
+                  },
+                  textHint: "Name"),
               SizedBox(height: 8),
-              CustomTextField(textHint: "Email"),
+              CustomTextField(
+                  onChanged: (data) {
+                    email = data;
+                  },
+                  textHint: "Email"),
               SizedBox(height: 8),
-              CustomTextField(textHint: "Password"),
+              CustomTextField(
+                  onChanged: (data) {
+                    password = data;
+                  },
+                  textHint: "Password"),
               SizedBox(height: 16),
-              CustomButton(title: "Register"),
+              CustomButton(
+                  onTap: () async {
+                    try {
+                      var auth = FirebaseAuth.instance;
+                      UserCredential userCredential = await auth
+                          .createUserWithEmailAndPassword(
+                          email: email!, password: password!);
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                  title: "Register"),
               SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +92,7 @@ class RegisterView extends StatelessWidget {
                     },
                     child: Text(
                       " Login",
-                      style: TextStyle(color:AppColors.kRowTextColor),
+                      style: TextStyle(color: AppColors.kRowTextColor),
                     ),
                   ),
                 ],
