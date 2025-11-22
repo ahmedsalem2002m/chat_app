@@ -72,31 +72,17 @@ class RegisterView extends StatelessWidget {
               CustomButton(
                 onTap: () async {
                   try {
-                    var auth = FirebaseAuth.instance;
-                    UserCredential userCredential = await auth
-                        .createUserWithEmailAndPassword(
-                          email: email!,
-                          password: password!,
-                        );
+                    await registerUser();
                   } on FirebaseAuthException catch (ex) {
                     if (ex.code == 'weak-password') {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text("password is weak")));
+                      showSnackBar(context, 'weak-password');
                     } else if (ex.code == 'email-already-in-use') {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text("email already in use")));
+                      showSnackBar(context, "email already in use");
                     }
-                  }catch (e){
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(e.toString())));
+                  } catch (e) {
+                    showSnackBar(context, e.toString());
                   }
-
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("success")));
+                  showSnackBar(context, "success");
                 },
                 title: "Register",
               ),
@@ -123,6 +109,20 @@ class RegisterView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Future<void> registerUser() async {
+    var auth = FirebaseAuth.instance;
+    UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+      email: email!,
+      password: password!,
     );
   }
 }
