@@ -13,6 +13,7 @@ class RegisterView extends StatelessWidget {
   String? email;
   String? name;
   String? password;
+  GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -21,91 +22,111 @@ class RegisterView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 44),
-              Image.asset("assets/images/scholar.png"),
-              Text(
-                "Scholar Chat",
-                style: TextStyle(
-                  fontFamily: "pacifico",
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                SizedBox(height: 44),
+                Image.asset("assets/images/scholar.png"),
+                Text(
+                  "Scholar Chat",
+                  style: TextStyle(
+                    fontFamily: "pacifico",
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              SizedBox(height: 52),
-              Row(
-                children: [
-                  Text(
-                    "Register",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                SizedBox(height: 52),
+                Row(
+                  children: [
+                    Text(
+                      "Register",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                onChanged: (data) {
-                  name = data;
-                },
-                textHint: "Name",
-              ),
-              SizedBox(height: 8),
-              CustomTextField(
-                onChanged: (data) {
-                  email = data;
-                },
-                textHint: "Email",
-              ),
-              SizedBox(height: 8),
-              CustomTextField(
-                onChanged: (data) {
-                  password = data;
-                },
-                textHint: "Password",
-              ),
-              SizedBox(height: 16),
-              CustomButton(
-                onTap: () async {
-                  try {
-                    await registerUser();
-                  } on FirebaseAuthException catch (ex) {
-                    if (ex.code == 'weak-password') {
-                      showSnackBar(context, 'weak-password');
-                    } else if (ex.code == 'email-already-in-use') {
-                      showSnackBar(context, "email already in use");
+                  ],
+                ),
+                SizedBox(height: 16),
+                CustomTextField(
+                  // validator: (data){
+                  //   if(data!.isEmpty){
+                  //     return "name is required";
+                  //   }
+                  // },
+                  onChanged: (data) {
+                    name = data;
+                  },
+                  textHint: "Name",
+                ),
+                SizedBox(height: 8),
+                CustomTextField(
+                  validator: (data){
+                    if(data!.isEmpty){
+                      return "email is required";
                     }
-                  } catch (e) {
-                    showSnackBar(context, e.toString());
-                  }
-                  showSnackBar(context, "success");
-                },
-                title: "Register",
-              ),
-              SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account!",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context, LoginView.id);
-                    },
-                    child: Text(
-                      " Login",
-                      style: TextStyle(color: AppColors.kRowTextColor),
+                  },
+                  onChanged: (data) {
+                    email = data;
+                  },
+                  textHint: "Email",
+                ),
+                SizedBox(height: 8),
+                CustomTextField(
+                  validator: (data){
+                    if(data!.isEmpty){
+                      return "password is required";
+                    }
+                  },
+                  onChanged: (data) {
+                    password = data;
+                  },
+                  textHint: "Password",
+                ),
+                SizedBox(height: 16),
+                CustomButton(
+                  onTap: () async {
+                    if (formKey.currentState!.validate()) {
+                      try {
+                        await registerUser();
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          showSnackBar(context, 'weak-password');
+                        } else if (e.code == 'email-already-in-use') {
+                          showSnackBar(context, "email already in use");
+                        }
+                      } catch (e) {
+                        showSnackBar(context, e.toString());
+                      }
+                      showSnackBar(context, "success");
+                    }
+                  },
+                  title: "Register",
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account!",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context, LoginView.id);
+                      },
+                      child: Text(
+                        " Login",
+                        style: TextStyle(color: AppColors.kRowTextColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
