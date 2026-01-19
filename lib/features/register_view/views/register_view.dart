@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../../core/show_snack_bar.dart';
+
 class RegisterView extends StatefulWidget {
   RegisterView({super.key});
 
@@ -110,6 +112,7 @@ class _RegisterViewState extends State<RegisterView> {
                         try {
                           await registerUser();
                           showSnackBar(context, "success");
+                          Navigator.pop(context);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             showSnackBar(context, 'weak-password');
@@ -156,11 +159,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  void showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
+
 
   Future<void> registerUser() async {
     var auth = FirebaseAuth.instance;

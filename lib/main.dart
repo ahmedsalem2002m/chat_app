@@ -1,3 +1,4 @@
+import 'package:chat_app/features/chat_view/views/chat_view.dart';
 import 'package:chat_app/features/login_view/views/login_view.dart';
 import 'package:chat_app/features/register_view/views/register_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         LoginView.id : (context)=>LoginView(),
-        RegisterView.id :(context)=>RegisterView()
+        RegisterView.id :(context)=>RegisterView(),
+        ChatView.id : (context)=>ChatView()
       },
       debugShowCheckedModeBanner: false,
       home: LoginView(),
