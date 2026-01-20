@@ -85,6 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
                       if(data!.isEmpty){
                         return "email is required";
                       }
+                      return null;
                     },
                     onChanged: (data) {
                       email = data;
@@ -97,6 +98,7 @@ class _RegisterViewState extends State<RegisterView> {
                       if(data!.isEmpty){
                         return "password is required";
                       }
+                      return null;
                     },
                     onChanged: (data) {
                       password = data;
@@ -113,7 +115,7 @@ class _RegisterViewState extends State<RegisterView> {
                         });
                         try {
                           await registerUser();
-                          Navigator.pushReplacementNamed(context, ChatView.id);
+                          Navigator.pushReplacementNamed(context, ChatView.id,arguments: email);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             showSnackBar(context, 'weak-password');
@@ -142,7 +144,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context, LoginView.id);
+                          Navigator.pop(context, LoginView.id,);
                         },
                         child: Text(
                           " Login",

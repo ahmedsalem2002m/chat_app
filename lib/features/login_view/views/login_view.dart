@@ -63,16 +63,19 @@ class _LoginViewState extends State<LoginView> {
                     if(data!.isEmpty){
                       return "email is required";
                     }
+                    return null;
                   },
                 onChanged: (data){
                   email = data;
                 },),
                 SizedBox(height: 8),
                 CustomTextField(textHint: "Password",
+                  obscureText: true,
                   validator: (data){
                     if(data!.isEmpty){
                       return "password is required";
                     }
+                    return null;
                   },
                 onChanged: (data){
                   password = data;
@@ -89,7 +92,7 @@ class _LoginViewState extends State<LoginView> {
 
                     try {
                       await loginUser();
-                      Navigator.pushReplacementNamed(context,ChatView.id);
+                      Navigator.pushReplacementNamed(context,ChatView.id,arguments: email);
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         showSnackBar(
