@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/app_colors.dart';
 
 class ChatBubble extends StatelessWidget {
-  const ChatBubble({super.key});
+   final String  message;
+   ChatBubble({super.key, required this.message});
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ChatBubble extends StatelessWidget {
         color: AppColors.kPrimaryColor,
       ),
       child: Text(
-        "Ahmed Salem Mohamed Salem ",
+        message,
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
