@@ -1,4 +1,6 @@
+import 'package:chat_app/core/utils/app_assets.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/features/chat_view/views/chat_view.dart';
 import 'package:chat_app/features/login_view/views/login_view.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_button.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_text_field.dart';
@@ -42,7 +44,7 @@ class _RegisterViewState extends State<RegisterView> {
               child: Column(
                 children: [
                   SizedBox(height: 44),
-                  Image.asset("assets/images/scholar.png"),
+                  Image.asset(AppAssets.kLogo),
                   Text(
                     "Scholar Chat",
                     style: TextStyle(
@@ -111,8 +113,7 @@ class _RegisterViewState extends State<RegisterView> {
                         });
                         try {
                           await registerUser();
-                          showSnackBar(context, "success");
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(context, ChatView.id);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             showSnackBar(context, 'weak-password');

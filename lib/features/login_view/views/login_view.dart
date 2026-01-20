@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/app_assets.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/chat_view/views/chat_view.dart';
 import 'package:chat_app/features/login_view/views/widgets/custom_button.dart';
@@ -33,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               children: [
                 SizedBox(height: 44,),
-                Image.asset("assets/images/scholar.png"),
+                Image.asset(AppAssets.kLogo),
                 Text(
                   "Scholar Chat",
                   style: TextStyle(
@@ -88,9 +89,7 @@ class _LoginViewState extends State<LoginView> {
 
                     try {
                       await loginUser();
-                      showSnackBar(context, "Login successful");
-                      // Navigator.pop(context);
-                      Navigator.pushNamed(context,ChatView.id);
+                      Navigator.pushReplacementNamed(context,ChatView.id);
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         showSnackBar(

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         ChatView.id : (context)=>ChatView()
       },
       debugShowCheckedModeBanner: false,
-      home: LoginView(),
+      initialRoute: LoginView.id,
     );
   }
 }
