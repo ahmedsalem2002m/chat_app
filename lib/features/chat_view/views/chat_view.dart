@@ -27,7 +27,6 @@ class _ChatViewState extends State<ChatView> {
   @override
   Widget build(BuildContext context) {
      email = ModalRoute.of(context)!.settings.arguments;
-     print(email);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.kPrimaryColor,
